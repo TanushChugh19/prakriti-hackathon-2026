@@ -1,0 +1,99 @@
+{
+  "generated_at": "2026-07-19T15:47:46.410119",
+  "incident_json": {
+    "frame": {
+      "label": "Accident",
+      "confidence": 70
+    },
+    "metadata": {
+      "location": "Science Block, Outside Chemistry Lab C-204",
+      "date": "2026-07-22",
+      "time": "12:37:14"
+    },
+    "participants": [
+      {
+        "id": "Person_1",
+        "role": "Unknown",
+        "confidence": 70
+      },
+      {
+        "id": "Person_2",
+        "role": "Unknown",
+        "confidence": 70
+      }
+    ],
+    "events": [
+      {
+        "sequence": 1,
+        "event": "Fall",
+        "description": "Observed fall incident",
+        "evidence_type": "Observed",
+        "confidence": 90,
+        "sources": [
+          "Camera Observation"
+        ],
+        "supports_frame": true
+      },
+      {
+        "sequence": 2,
+        "event": "Crowd Formation",
+        "description": "Group of individuals gathered around incident",
+        "evidence_type": "Observed",
+        "confidence": 90,
+        "sources": [
+          "Camera Observation"
+        ],
+        "supports_frame": true
+      },
+      {
+        "sequence": 3,
+        "event": "Running",
+        "description": "Individuals observed running near incident",
+        "evidence_type": "Observed",
+        "confidence": 90,
+        "sources": [
+          "Camera Observation"
+        ],
+        "supports_frame": true
+      },
+      {
+        "sequence": 4,
+        "event": "Push",
+        "description": "Reported physical contact between individuals",
+        "evidence_type": "Reported",
+        "confidence": 70,
+        "sources": [
+          "Student A's Statement"
+        ],
+        "supports_frame": true
+      }
+    ],
+    "conflicts": [
+      {
+        "source1": "Student A's Statement",
+        "source2": "Student C's Statement",
+        "description": "Mutually exclusive accounts of physical contact",
+        "status": "mutually exclusive"
+      }
+    ],
+    "evidence": [
+      {
+        "type": "Observed",
+        "description": "Camera captured fall, crowd, and running behavior"
+      },
+      {
+        "type": "Reported",
+        "description": "Student A claimed physical contact occurred"
+      },
+      {
+        "type": "Reported",
+        "description": "Student C denied witnessing physical contact"
+      }
+    ],
+    "unknowns": [
+      "Unknown cause of fall",
+      "Unknown exact roles of participants"
+    ]
+  },
+  "report": "**Incident Report**  \n**Prepared by:** IncidentFrameAI  \n**Date:** 19 July 2026  \n\n---\n\n**Incident Overview**  \nAn incident labeled as an \"Accident\" (confidence: 70%) occurred on **2026-07-22 at 12:37:14** in the **Science Block, Outside Chemistry Lab C-204**. The incident involved two individuals (Person_1 and Person_2), whose roles and exact identities remain unknown (confidence: 70%).  \n\n---\n\n**Observed Events**  \n1. **Fall (Sequence 1):** A fall incident was observed via camera footage (confidence: 90%).  \n2. **Crowd Formation (Sequence 2):** A group of individuals gathered around the incident location, as captured by camera observation (confidence: 90%).  \n3. **Running (Sequence 3):** Individuals were observed running near the incident area, per camera footage (confidence: 90%).  \n\nThese observations support the tentative classification of the incident as an accident.  \n\n---\n\n**Reported Events**  \n1. **Push (Sequence 4):** A witness (Student A) reported physical contact between individuals occurred (confidence: 70%). This claim is corroborated by camera observation, though no direct evidence of the contact was recorded.  \n\n---\n\n**Conflicts**  \n- **Mutual Exclusivity:** Student A\u2019s statement describing physical contact conflicts with Student C\u2019s denial of witnessing such contact (status: mutually exclusive). This discrepancy remains unresolved.  \n\n---\n\n**Inferred Events**  \n- **Cause of Fall:** The exact cause of the fall remains unknown. No evidence was identified to confirm or rule out contributing factors (confidence: low).  \n- **Participant Roles:** The roles of Person_1 and Person_2 in the incident are unspecified. While the fall and crowd formation were observed, no definitive association between the participants and these events was established (confidence: low).  \n\n---\n\n**Unknowns**  \n- The cause of the fall is undetermined.  \n- The exact roles of the participants (Person_1 and Person_2) could not be confirmed.  \n\n---\n\n**Conclusion**  \nThe incident is tentatively classified as an accident based on observed evidence, though uncertainties persist regarding the cause of the fall and the roles of the individuals involved. Reported accounts of physical contact conflict, and further investigation may be required to resolve discrepancies. No blame is assigned beyond the frame and participant descriptions provided.  \n\n**End of Report**"
+}
