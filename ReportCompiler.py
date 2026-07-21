@@ -8,8 +8,14 @@ Runs against a locally hosted Qwen 3 model via Ollama.
 Prereq: ollama pull qwen3 and ollama serve running on localhost:11434.
 """
 
+import ctypes
+import getpass
 import json
+import os
+import subprocess
 import sys
+import time
+from ctypes import wintypes
 from datetime import datetime
 from pathlib import Path
 
@@ -17,7 +23,140 @@ import requests
 from markdown_pdf import MarkdownPdf, Section
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
+OLLAMA_HOST = "http://localhost:11434"
 MODEL_NAME = "qwen3:8b-q4_K_M"
+
+DEFAULT_OLLAMA_PATH = (
+    rf"C:\Users\{getpass.getuser()}\AppData\Local\Programs\Ollama\ollama app.exe"
+)
+PATH_FILE = "path.txt"
+
+# ---------------------------------------------------------------------------
+# Startup / Ollama Management
+# ---------------------------------------------------------------------------
+
+
+def ollama_running() -> bool:
+    try:
+        requests.get(OLLAMA_HOST, timeout=0.1)
+        return True
+    except requests.exceptions.RequestException:
+        return False
+
+
+def find_ollama():
+    if Path(DEFAULT_OLLAMA_PATH).exists():
+        return DEFAULT_OLLAMA_PATH
+
+    if Path(PATH_FILE).exists():
+        custom = Path(PATH_FILE).read_text().strip()
+
+        if Path(custom).exists():
+            return custom
+
+    return None
+
+
+def windows_error(message, title="IncidentFramAI"):
+    ctypes.windll.user32.MessageBoxW(0, message, title, 0x10)
+
+
+def launch_non_admin(path):
+    subprocess.Popen([path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def launch_admin(path):
+    ctypes.windll.shell32.ShellExecuteW(None, "runas", path, None, None, 1)
+
+
+def wait_for_ollama(timeout=60):
+    print("\nWaiting for Ollama to start...")
+
+    start = time.time()
+    width = 30
+    last_remaining = None
+
+    while True:
+
+        if ollama_running():
+            print("\r" + " " * 60, end="\r")
+            print("SUCCESS")
+            return True
+
+        elapsed = time.time() - start
+        remaining = max(0, timeout - int(elapsed))
+
+        if remaining != last_remaining:
+            last_remaining = remaining
+
+            filled = int((elapsed / timeout) * width)
+            filled = min(width, filled)
+
+            bar = "#" * filled + "-" * (width - filled)
+
+            print(
+                f"\r[{bar}] {remaining:02d}s remaining",
+                end="",
+                flush=True,
+            )
+
+        if elapsed >= timeout:
+            print()
+            return False
+
+        time.sleep(0.05)
+
+
+def ensure_ollama():
+
+    print("=" * 70)
+    print("Checking Ollama...")
+    print("=" * 70)
+
+    if ollama_running():
+        print("Ollama is already running.")
+        return
+
+    path = find_ollama()
+
+    if path is None:
+        windows_error(
+            "Ollama could not be found.\n"
+            "Install Ollama in its default location\n\n"
+            "OR\n\n"
+            "Create path.txt beside ReportCompiler.py containing\n"
+            "the full path to ollama app.exe\n\n"
+            "OR\n\n"
+            "Ollama must be started manually."
+        )
+        sys.exit()
+
+    print("Ollama found:")
+    print(path)
+    print()
+
+    print("Attempting administrator launch...")
+
+    launch_admin(path)
+
+    if not wait_for_ollama():
+        choice = input(
+            "\nOllama did not start within 60 seconds.\n"
+            "Type /non-admin to retry without administrator privileges\n"
+            "or anything else to exit: "
+        ).strip()
+
+    if choice == "/non-admin":
+        launch_non_admin(path)
+
+        if not wait_for_ollama():
+            windows_error("Ollama failed to start.")
+            sys.exit()
+
+    else:
+        sys.exit()
+
+    print("Startup complete.\n")
 
 
 # ---------------------------------------------------------------------------
@@ -326,26 +465,26 @@ DUMMY_CV_OBSERVATIONS = {
 
 DUMMY_WITNESS_STATEMENTS = [
     {
-        "source": "Student A",
+        "source": "Witness_1",
         "statement": "I saw two boys arguing outside the chemistry lab. One pushed the other and he fell.",
     },
     {
-        "source": "Teacher",
+        "source": "Witness_2",
         "statement": "I heard shouting around 12:37 PM and found one student on the floor near the lab entrance. About seven students had gathered around.",
     },
     {
-        "source": "Student C",
+        "source": "Witness_3",
         "statement": "I didn't see anyone get pushed, I just saw a crowd forming and someone already on the ground.",
     },
 ]
 
 
 # ---------------------------------------------------------------------------
-# Main
+# Review Default
 # ---------------------------------------------------------------------------
 
 
-def main():
+def review_default():
     print("=" * 70)
     print("STAGE 1: Frame Identification")
     print("=" * 70)
@@ -382,6 +521,247 @@ def main():
     with open(json_file, "w") as f:
         json.dump(out, f, indent=2)
     print(f"\nSaved full output to incident_output_{run_id}.json")
+
+
+# ---------------------------------------------------------------------------
+# Show Help
+# ---------------------------------------------------------------------------
+
+
+def show_help():
+    print("""
+Available commands
+
+/review-default
+    Run the built-in demo incident.
+
+/review
+    Review a real incident.
+
+/status
+    Show system status.
+
+/models
+    Show loaded model.
+
+/clear
+    Clear the console.
+
+/help
+    Show this menu.
+
+/exit
+    Exit IncidentFrameAI.
+""")
+
+
+# ---------------------------------------------------------------------------
+# Clear Screen
+# ---------------------------------------------------------------------------
+
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+# ---------------------------------------------------------------------------
+# Show Models
+# ---------------------------------------------------------------------------
+
+
+def show_models():
+    print("\nInstalled Ollama Models")
+    print("-" * 70)
+
+    try:
+        response = requests.get("http://localhost:11434/api/tags", timeout=5)
+        response.raise_for_status()
+
+        data = response.json()
+        models = data.get("models", [])
+
+        if not models:
+            print("No models are installed.")
+            return
+
+        for i, model in enumerate(models, start=1):
+            name = model.get("name", "Unknown")
+            size = model.get("size", 0) / (1024**3)
+            modified = model.get("modified_at", "Unknown")
+
+            current = " (Current)" if name == MODEL_NAME else ""
+
+            print(f"{i}. {name}{current}")
+            print(f"   Size: {size:.2f} GB")
+            print(f"   Modified: {modified}")
+            print()
+
+    except requests.exceptions.RequestException:
+        print("Unable to connect to Ollama.")
+
+
+# ---------------------------------------------------------------------------
+# Show Status
+# ---------------------------------------------------------------------------
+
+
+def show_status():
+    print()
+
+    print(f"Ollama : {'Running' if ollama_running() else 'Offline'}")
+    print(f"Model  : {MODEL_NAME}")
+    print(f"Host   : {OLLAMA_HOST}")
+
+
+# ---------------------------------------------------------------------------
+# Review
+# ---------------------------------------------------------------------------
+
+
+def review():
+    print("\n" + "=" * 70)
+    print("NEW INCIDENT REVIEW")
+    print("=" * 70)
+
+    # -----------------------------
+    # Load Computer Vision JSON
+    # -----------------------------
+    while True:
+        path = input("\nPath to CV observations JSON: ").strip().strip('"')
+
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                cv_observations = json.load(f)
+            break
+        except FileNotFoundError:
+            print("File not found.")
+        except json.JSONDecodeError:
+            print("Invalid JSON.")
+
+    # -----------------------------
+    # Witness Statements
+    # -----------------------------
+    print("\nEnter witness statements.")
+    print("Press ENTER on an empty line when finished.\n")
+
+    witness_statements = []
+
+    witness_number = 1
+
+    while True:
+
+        statement = input(f"Witness_{witness_number}: ").strip()
+
+        if statement == "":
+            break
+
+        witness_statements.append(
+            {
+                "source": f"Witness_{witness_number}",
+                "statement": statement,
+            }
+        )
+
+        witness_number += 1
+
+    if len(witness_statements) == 0:
+        print("\nAt least one witness statement is required.")
+        return
+
+    # -----------------------------
+    # Stage 1
+    # -----------------------------
+    print("\n" + "=" * 70)
+    print("STAGE 1: Frame Identification")
+    print("=" * 70)
+
+    incident_json = identify_frame(
+        cv_observations,
+        witness_statements,
+    )
+
+    print(json.dumps(incident_json, indent=2))
+
+    # -----------------------------
+    # Stage 2
+    # -----------------------------
+    print("\n" + "=" * 70)
+    print("STAGE 2: Report Generation")
+    print("=" * 70)
+
+    run_id = get_next_run_id()
+
+    report = generate_report(incident_json)
+
+    md_file = f"incident_report_{run_id}.md"
+
+    with open(md_file, "w", encoding="utf-8") as f:
+        f.write(report)
+
+    pdf = MarkdownPdf(toc_level=0)
+
+    with open(md_file, "r", encoding="utf-8") as f:
+        pdf.add_section(Section(f.read()))
+
+    pdf_file = f"incident_report_{run_id}.pdf"
+    pdf.save(pdf_file)
+
+    out = {
+        "generated_at": datetime.now().isoformat(),
+        "incident_json": incident_json,
+        "report": report,
+    }
+
+    json_file = f"incident_output_{run_id}.json"
+
+    with open(json_file, "w", encoding="utf-8") as f:
+        json.dump(out, f, indent=2)
+
+    print("\nReview complete.")
+    print(f"JSON : {json_file}")
+    print(f"Markdown : {md_file}")
+    print(f"PDF : {pdf_file}")
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+
+def main():
+    ensure_ollama()
+
+    print("=" * 70)
+    print("IncidentFrameAI CLI")
+    print("Type /help for available commands.")
+    print("=" * 70)
+
+    while True:
+        command = input("\n> ").strip()
+
+        if command == "/exit":
+            break
+
+        elif command == "/help":
+            show_help()
+
+        elif command == "/review-default":
+            review_default()
+
+        elif command == "/clear":
+            clear_screen()
+
+        elif command == "/models":
+            show_models()
+
+        elif command == "/status":
+            show_status()
+
+        elif command == "/review":
+            review()
+
+        else:
+            print("Unknown command. Type /help.")
 
 
 if __name__ == "__main__":
