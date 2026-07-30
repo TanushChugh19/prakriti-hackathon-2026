@@ -1,62 +1,62 @@
-# 🚨 IncidentFrameAI
+# 💜 Emotion Signal
 
-An AI-powered **Incident Frame Identification** pipeline that combines **Computer Vision observations** and **witness statements** to produce structured incident data and generate professional incident reports.
+**Emotion Signal** is a modern AI-powered emotion recognition platform that analyzes natural language and identifies the underlying emotional state of a piece of text.
 
-The project demonstrates how Large Language Models (LLMs) can be used for evidence attribution, incident classification, conflict detection, and automated report generation while explicitly distinguishing between **Observed**, **Reported**, and **Inferred** information.
+Designed with a clean, interactive interface, Emotion Signal demonstrates how transformer-based language models can transform everyday text into meaningful emotional insight.
 
-Everything runs **completely locally** using **Ollama + Qwen 3**, ensuring privacy and eliminating dependency on cloud APIs.
+> **Current Version**
+>
+> This repository contains the complete frontend experience and interactive prototype. The live demo currently uses a lightweight JavaScript classifier for instant feedback and is designed to be connected to a trained transformer model in production.
 
 ---
 
 # ✨ Features
 
-- 📹 Computer Vision + Witness Statement fusion
-- 🧠 Structured Incident Frame Identification
-- 📄 Strict JSON schema generation
-- 📊 Automatic confidence estimation
-- 🔍 Evidence attribution
-- ⚖️ Conflict detection
-- ❓ Unknown information tracking
-- 📝 Professional Markdown report generation
-- 📑 PDF report generation
-- 🖥️ Interactive Command-Line Interface (CLI)
-- 🚀 Automatic Ollama detection and startup
-- 📂 External Computer Vision JSON input
-- 💬 Interactive witness statement collection
-- 📁 Automatic numbered output generation
-- 💻 Runs completely locally using **Ollama + Qwen 3**
+- 🧠 Emotion recognition from natural language
+- 🎨 Modern responsive interface
+- ⚡ Instant interactive predictions
+- 📊 Confidence visualization
+- 📈 Emotion spectrum display
+- 🖥️ Dedicated Emotion Studio
+- 🔐 Login & workspace prototype
+- 📱 Mobile-friendly design
+- 🌙 Premium landing page
+- 🎯 Ready for backend AI integration
 
 ---
 
-# 🔄 Pipeline
+# 🎯 Supported Emotions
+
+Emotion Signal currently predicts six primary emotions:
+
+- 😊 Joy
+- ❤️ Love
+- 😢 Sadness
+- 😡 Anger
+- 😨 Fear
+- 😲 Surprise
+
+---
+
+# 🔄 System Overview
 
 ```
-                   CCTV Video
-                        │
-                        ▼
-          Computer Vision Processing
-                        │
-      Structured CV Observations (JSON)
-                        │
-                        │
-Witness Statements ─────┘
-                        │
-                        ▼
-         Frame Identification Agent
-                (Qwen 3 via Ollama)
-                        │
-                        ▼
-              Structured Incident JSON
-                        │
-                        ▼
-          Report Generation Agent
-                (Qwen 3 via Ollama)
-                        │
-                        ▼
-          Markdown Incident Report
-                        │
-                        ▼
-               PDF Incident Report
+User Text
+     │
+     ▼
+Emotion Studio
+     │
+     ▼
+Emotion Classifier
+     │
+     ▼
+Primary Emotion
+     │
+     ▼
+Confidence Scores
+     │
+     ▼
+Interactive Visualization
 ```
 
 ---
@@ -64,294 +64,173 @@ Witness Statements ─────┘
 # 📁 Project Structure
 
 ```
-IncidentFrameAI/
+EmotionSignal/
+
+├── index.html
+├── studio.html
+├── login.html
 │
-├── ReportCompiler.py
-├── README.md
-├── LICENSE
-├── path.txt                 # Optional (custom Ollama location)
+├── app.js
+├── styles.css
+├── pages.css
 │
 ├── assets/
 │
-├── incident_output_*.json
-├── incident_report_*.md
-└── incident_report_*.pdf
+└── README.md
 ```
 
 ---
 
-# 🏷️ Supported Incident Frames
+# 🖥️ Pages
 
-The Frame Identification Agent classifies incidents into one of the following categories:
+## 🏠 Landing Page
 
-- 🥊 Fight
-- 🚫 Bullying
-- 💰 Theft
-- 🎨 Vandalism
-- 🚷 Trespassing
-- 🚑 Medical Emergency
-- 🔥 Fire
-- ⚠️ Accident
-- 👀 Suspicious Activity
-- ✅ Normal Activity
+Introduces Emotion Signal, explains the technology, showcases use cases, and provides access to the live demo.
 
 ---
 
-# 📦 JSON Output Schema
+## 🔐 Login
 
-The Frame Identification Agent produces a structured JSON object containing:
+A modern authentication prototype that demonstrates the future workspace experience.
 
-- 🏷️ Frame classification
-- 📍 Metadata
-- 👥 Participants
-- ⏱️ Chronological events
-- 🔎 Evidence
-- ⚖️ Conflicts
-- ❓ Unknown information
+---
 
-Example:
+## 🧠 Emotion Studio
 
-```json
-{
-    "frame": {
-        "label": "Fight",
-        "confidence": 82
-    },
+The primary interface where users can:
 
-    "metadata": {
-        "location": "Science Block",
-        "date": "2026-07-22",
-        "time": "12:37:14"
-    },
+- Enter text
+- Analyze emotional content
+- View confidence scores
+- Explore the emotional spectrum
 
-    "participants": [
-        {
-            "id": "Person_1",
-            "role": "Unknown",
-            "confidence": 65
-        }
-    ],
+---
 
-    "events": [
-        {
-            "sequence": 1,
-            "event": "Fall",
-            "description": "Person fell to the ground.",
-            "evidence_type": "Observed",
-            "confidence": 90,
-            "source": [
-                "CAM-03"
-            ],
-            "supports_frame": true
-        }
-    ]
-}
+# ⚙️ Current Architecture
+
+```
+User Input
+      │
+      ▼
+JavaScript Emotion Classifier
+      │
+      ▼
+Keyword Matching
+      │
+      ▼
+Confidence Visualization
+      │
+      ▼
+Emotion Dashboard
 ```
 
----
-
-# 🧠 Prompt Design
-
-The Frame Identification Agent follows several core principles:
-
-- 👁️ Separate **Observed**, **Reported**, and **Inferred** events.
-- 🚫 Never convert witness statements into observed facts.
-- 📌 Explicitly attribute evidence sources.
-- ⚖️ Detect mutually exclusive witness statements.
-- ❓ Preserve uncertainty rather than hallucinating missing information.
-- 📊 Assign confidence values based on supporting evidence.
-- 📄 Produce only valid JSON conforming to a predefined schema.
-- 🏷️ Restrict classifications to predefined incident frame labels.
-- 👥 Keep witnesses separate from incident participants.
-- 🔄 Merge duplicate events while preserving evidence attribution.
-
-The Report Generation Agent converts the structured incident JSON into a formal incident report while preserving uncertainty, evidence attribution, and conflict information.
+The current implementation uses a lightweight JavaScript classifier to simulate predictions for demonstration purposes.
 
 ---
 
-# 💻 Command-Line Interface
+# 🚀 Future Production Architecture
 
-After startup, IncidentFrameAI launches an interactive CLI.
+```
+User Input
+      │
+      ▼
+Frontend
+      │
+      ▼
+REST API
+      │
+      ▼
+DistilRoBERTa
+      │
+      ▼
+Softmax Probabilities
+      │
+      ▼
+Emotion Dashboard
+```
 
-Available commands:
-
-| Command | Description |
-|----------|-------------|
-| `/help` | Display available commands |
-| `/review-default` | Run the built-in demonstration incident |
-| `/review` | Review an incident using an external Computer Vision JSON file |
-| `/status` | Show Ollama connection status and active model |
-| `/models` | List installed Ollama models |
-| `/clear` | Clear the console |
-| `/exit` | Exit IncidentFrameAI |
+A future version will replace the JavaScript classifier with a fine-tuned transformer model hosted through an API.
 
 ---
 
 # 🚀 Running the Project
 
-## Requirements
-
-- Python 3.10+
-- Ollama
-- Qwen 3 model
-- markdown-pdf
-
-Install Python dependencies:
+Clone the repository:
 
 ```bash
-pip install requests markdown-pdf
+git clone https://github.com/yourusername/emotion-signal.git
 ```
 
-Install the Qwen 3 model:
+Open the project folder:
 
 ```bash
-ollama pull qwen3
+cd emotion-signal
 ```
 
-Run the application:
+Launch the website:
+
+```
+index.html
+```
+
+or use a local web server:
 
 ```bash
-python ReportCompiler.py
-```
-
-IncidentFrameAI automatically:
-
-- Detects whether Ollama is already running.
-- Starts Ollama if necessary.
-- Falls back to a non-administrator launch if administrator startup fails.
-- Displays startup progress.
-- Opens the interactive CLI.
-
-If Ollama is installed in a non-default location, create a `path.txt` file beside `ReportCompiler.py` containing the full path to:
-
-```
-ollama app.exe
-```
-
----
-
-# 🖥️ Example CLI Session
-
-```
-======================================================================
-IncidentFrameAI CLI
-Type /help for available commands.
-======================================================================
-
-> /help
-
-Available commands
-
-/review-default
-/review
-/status
-/models
-/clear
-/help
-/exit
-
-> /review
-
-Path to CV observations JSON:
-> cv.json
-
-Enter witness statements.
-
-Witness_1:
-> I saw two students arguing.
-
-Witness_2:
-> One pushed the other.
-
-Witness_3:
-
-...
-
-Review complete.
-
-JSON : incident_output_1.json
-Markdown : incident_report_1.md
-PDF : incident_report_1.pdf
-```
-
----
-
-# 🔍 Example Workflow
-
-```
-Start Program
-       │
-       ▼
-Automatic Ollama Startup
-       │
-       ▼
-IncidentFrameAI CLI
-       │
-       ├──────────────┐
-       ▼              ▼
-/review-default   /review
-                      │
-                      ▼
-            Load CV JSON File
-                      │
-                      ▼
-       Enter Witness Statements
-                      │
-                      ▼
-      Frame Identification Agent
-                      │
-                      ▼
-      Structured Incident JSON
-                      │
-                      ▼
-       Report Generation Agent
-                      │
-                      ▼
-        Markdown + PDF Reports
+python -m http.server
 ```
 
 ---
 
 # 🛠️ Technologies Used
 
-- 🐍 Python
-- 🦙 Ollama
-- 🤖 Qwen 3
-- 📦 JSON
-- 📝 Markdown
-- 📄 markdown-pdf
-- 🖥️ Windows API (ctypes)
-- 💻 Command-Line Interface (CLI)
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- Google Fonts
+- Responsive Design
 
 ---
 
-# 🚀 Future Improvements
+# 🔮 Future Improvements
 
-- 🎥 Automatic Computer Vision observation generation from video
-- 📡 Real-time CCTV integration
-- 📹 Multi-camera evidence fusion
-- 📈 Interactive timeline visualization
-- 🌐 Web dashboard
-- 🔄 Batch incident processing
-- 🧠 Configurable LLM selection
-- 🌍 Multi-language report generation
-- 🗄️ Database integration
-- 🔌 REST API
+- 🤖 DistilRoBERTa backend integration
+- 🧠 Fine-tuned HuggingFace model
+- ⚡ FastAPI inference server
+- 🔐 Real authentication
+- 📈 Emotion history
+- 📊 Analytics dashboard
+- ☁️ Cloud deployment
+- 🌍 Multi-language emotion detection
+- 🎭 Multi-label emotion prediction
+- 📱 Progressive Web App
+
+---
+
+# 📖 Use Cases
+
+- Customer feedback analysis
+- Mental health research
+- Chatbot sentiment understanding
+- Social media monitoring
+- Employee wellbeing
+- Educational platforms
+- Human-computer interaction
+- UX research
 
 ---
 
 # ⚠️ Disclaimer
 
-This project is intended for **research, educational, and demonstration purposes**.
+The current version is an interactive demonstration.
 
-The generated incident classifications and reports are AI-assisted outputs and should **not** be considered definitive evidence or used as the sole basis for disciplinary, legal, or administrative decisions.
+The frontend currently uses a lightweight JavaScript classifier to simulate emotion recognition and is intended to showcase the user experience. It should not be considered a production-grade AI system.
 
-All generated reports should be reviewed and verified by an appropriate human authority before being used in operational, legal, or administrative contexts.
+Future releases will integrate a fine-tuned transformer model for real emotion classification.
 
 ---
 
 # 📜 License
 
-This project is licensed under the **MIT License**.
+This project is licensed under the MIT License.
 
-See the `LICENSE` file for details.
+See the LICENSE file for details.
