@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080a18" />
+    <title>Emotion Signal — Read the feeling between the lines</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grain"></div>
+    <div class="orb orb-one"></div><div class="orb orb-two"></div>
+    <div class="toast" id="toast">Analysis saved to your workspace</div>
+
+    <nav class="nav wrap">
+      <a class="brand" href="#top" aria-label="Emotion Signal home"><span class="brand-mark"><i></i><i></i><i></i></span>emotion<span>signal</span></a>
+      <div class="nav-links"><a href="#how">How it works</a><a href="#model">The model</a><a href="#impact">Use cases</a></div>
+      <a class="ghost-button" href="login.html">Sign in <span>↗</span></a>
+    </nav>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="eyebrow"><span class="pulse"></span> Human language, understood</div>
+        <h1>Feel what the<br /><em>words don’t say.</em></h1>
+        <p class="hero-copy">Emotion Signal turns everyday language into meaningful emotional insight—giving teams the context behind every message.</p>
+        <div class="hero-actions"><a class="primary-button" href="studio.html">Try the live demo <span>→</span></a><a class="text-link" href="#how">See the science <span>↓</span></a></div>
+        <div class="hero-metrics"><div><strong>6</strong><span>human emotions</span></div><div><strong>DistilRoBERTa</strong><span>language model</span></div><div><strong>&lt; 1s</strong><span>to understand a thought</span></div></div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="signal-line"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="floating-card card-joy"><small>DETECTED</small><strong>Joy</strong><b>96.8%</b></div>
+          <div class="floating-card card-love"><small>SECONDARY</small><strong>Love</strong><b>72.4%</b></div>
+          <div class="hero-ring"><div><span>EMOTION</span><strong>∞</strong><small>is data with a pulse</small></div></div>
+        </div>
+      </section>
+
+      <section class="studio-section" id="studio">
+        <div class="wrap">
+          <div class="section-kicker">01 — LIVE EXPERIENCE</div>
+          <div class="section-heading"><h2>Your words,<br /><em>in full color.</em></h2><p>Type a thought, paste customer feedback, or choose a prompt. Watch the emotional signal emerge in real time.</p></div>
+          <div class="studio-shell">
+            <div class="studio-top"><span class="live-dot"></span><span>EMOTION STUDIO</span><span class="studio-model">DISTILROBERTA · V1.0</span></div>
+            <div class="studio-grid">
+              <div class="input-panel">
+                <label for="emotionInput">What’s on your mind?</label>
+                <textarea id="emotionInput" maxlength="500" placeholder="Try: I can’t believe we finally made it happen. I’m so proud of us.">I can’t believe we finally made it happen. I’m so proud of us.</textarea>
+                <div class="input-footer"><span id="charCount">66 / 500</span><button class="analyze-button" id="analyzeButton">Read emotion <span>→</span></button></div>
+                <div class="examples"><span>Quick prompts</span><button data-example="I feel so grateful to have you in my life.">grateful</button><button data-example="This is beyond frustrating. Nothing works.">frustrated</button><button data-example="I never saw that coming. What just happened?">shocked</button></div>
+              </div>
+              <div class="result-panel" id="resultPanel">
+                <div class="result-empty"><div class="radar"><span></span><span></span><span></span></div><p>Listening for the feeling<br />behind your words.</p></div>
+                <div class="result-content" id="resultContent">
+                  <div class="result-label">PRIMARY SIGNAL</div>
+                  <div class="primary-result"><div class="emotion-icon" id="emotionIcon">✦</div><div><h3 id="primaryEmotion">Joy</h3><p id="emotionDescription">A bright, uplifting emotional state.</p></div><strong id="confidence">96.8%</strong></div>
+                  <div class="meter-head"><span>EMOTIONAL SPECTRUM</span><span id="certainty">High certainty</span></div>
+                  <div class="spectrum" id="spectrum"></div>
+                  <div class="model-note"><span>✺</span><p>Context-aware analysis considers the full meaning of your text, not just keywords.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="demo-disclaimer">Interactive demo uses local signals for instant feedback. Connect your trained model through an API for production predictions.</p>
+        </div>
+      </section>
+
+      <section class="how wrap" id="how">
+        <div class="section-kicker">02 — FROM LANGUAGE TO INSIGHT</div>
+        <div class="section-heading"><h2>Built to understand<br /><em>the whole thought.</em></h2><p>Not a keyword matcher. Our model reads language in context, capturing nuance, intention and the subtle shift of a sentence.</p></div>
+        <div class="flow">
+          <article><span class="flow-num">01</span><div class="flow-icon">⌁</div><h3>Receive language</h3><p>Messages, reviews, feedback, conversations—any natural text.</p></article>
+          <article><span class="flow-num">02</span><div class="flow-icon">◈</div><h3>Read the context</h3><p>A fine-tuned transformer maps relationships across every word.</p></article>
+          <article><span class="flow-num">03</span><div class="flow-icon">✦</div><h3>Surface the signal</h3><p>Six human emotions, ranked with clear confidence.</p></article>
+        </div>
+      </section>
+
+      <section class="model-section" id="model"><div class="wrap model-grid">
+        <div><div class="section-kicker">03 — THE ENGINE</div><h2>Small enough to move fast.<br /><em>Smart enough to listen.</em></h2><p>Fine-tuned on 20,000 emotionally-labelled statements, Emotion Signal uses a DistilRoBERTa sequence classifier to detect six essential states of human feeling.</p><a class="text-link" href="studio.html">Explore the model <span>→</span></a></div>
+        <div class="architecture-card"><div class="arch-title"><span>MODEL OVERVIEW</span><span class="status">● READY</span></div><div class="arch-row"><span>Input</span><b>Natural language</b></div><div class="arch-arrow">↓</div><div class="arch-row"><span>Encoder</span><b>DistilRoBERTa</b></div><div class="arch-arrow">↓</div><div class="arch-row"><span>Output</span><b>6 emotion classes</b></div><div class="classes"><span>sadness</span><span>joy</span><span>love</span><span>anger</span><span>fear</span><span>surprise</span></div></div>
+      </div></section>
+
+      <section class="impact wrap" id="impact"><div class="section-kicker">04 — WHERE EMPATHY SCALES</div><div class="section-heading"><h2>Make every interaction<br /><em>more human.</em></h2></div><div class="use-grid"><article><span>01</span><h3>Customer voice</h3><p>Spot delight, friction and urgency across thousands of reviews.</p><i>↗</i></article><article><span>02</span><h3>Better support</h3><p>Route sensitive conversations with the care they deserve.</p><i>↗</i></article><article><span>03</span><h3>Wellbeing signals</h3><p>Build thoughtful, emotion-aware experiences that listen closely.</p><i>↗</i></article></div></section>
+      <section class="closing wrap"><div><span class="eyebrow"><span class="pulse"></span> Start with one sentence</span><h2>The future of language<br />is <em>felt.</em></h2></div><a class="primary-button" href="studio.html">Experience Emotion Signal <span>→</span></a></section>
+    </main>
+    <footer class="wrap"><a class="brand" href="#top"><span class="brand-mark"><i></i><i></i><i></i></span>emotion<span>signal</span></a><span>Built for the human side of data.</span><span>© 2026</span></footer>
+
+    <div class="modal-overlay" id="modal"><div class="modal"><button class="modal-close" id="closeModal">×</button><div class="eyebrow"><span class="pulse"></span> WELCOME BACK</div><h2>Continue the<br /><em>conversation.</em></h2><p>Your workspace keeps emotional insight close at hand.</p><form id="loginForm"><label>Email address<input type="email" placeholder="you@company.com" required /></label><label>Password<input type="password" placeholder="••••••••" required /></label><button class="primary-button" type="submit">Sign in to workspace <span>→</span></button></form><small>Demo access — any email and password will work.</small></div></div>
+    <script src="app.js"></script>
+  </body>
+</html>
