@@ -153,26 +153,6 @@ or launch it using a local web server.
 
 ---
 
-# 📚 Model Training
-
-The complete model training pipeline is provided in the Jupyter notebook:
-
-📓 **training_model.ipynb**
-
-The notebook documents the full machine learning workflow, including:
-
-- 📥 Dataset loading and preprocessing
-- 🧹 Text cleaning and tokenization
-- 🤗 Fine-tuning a Hugging Face RoBERTa model
-- ⚙️ Training configuration and hyperparameters
-- 📈 Model evaluation
-- 💾 Exporting the trained model
-- 🚀 Preparing the model for deployment with the Flask backend
-
-This notebook allows the training process to be reproduced and serves as documentation for the development of the emotion classification model.
-
----
-
 # 🧠 API
 
 ## POST `/predict`
@@ -240,6 +220,26 @@ The emotion classifier is a fine-tuned **RoBERTa Sequence Classification** model
 - Surprise
 
 Model artifacts are stored using **Git Large File Storage (Git LFS)**.
+
+---
+
+# 📚 Model Training
+
+The complete model training pipeline is provided in the Jupyter notebook:
+
+📓 **training_model.ipynb**
+
+The notebook documents the full machine learning workflow, including:
+
+- 📥 Dataset loading and preprocessing
+- 🧹 Text cleaning and tokenization
+- 🤗 Fine-tuning a Hugging Face RoBERTa model
+- ⚙️ Training configuration and hyperparameters
+- 📈 Model evaluation
+- 💾 Exporting the trained model
+- 🚀 Preparing the model for deployment with the Flask backend
+
+This notebook allows the training process to be reproduced and serves as documentation for the development of the emotion classification model.
 
 ---
 
