@@ -62,16 +62,8 @@ The model classifies text into one of six emotions:
 # 📁 Repository Structure
 
 ```
-EmotionSignal/
+prakriti-hackathon-2026/
 
-│
-├── frontend/
-│   ├── index.html
-│   ├── studio.html
-│   ├── login.html
-│   ├── app.js
-│   ├── styles.css
-│   └── pages.css
 │
 ├── backend/
 │   ├── app.py
@@ -81,12 +73,27 @@ EmotionSignal/
 │       ├── tokenizer.json
 │       ├── tokenizer_config.json
 │       ├── training_args.bin
-│       └── model.safetensors
+│       ├── model.safetensors
+│       └── ...
+│
+├── backend (backup)/
+│
+├── index.html
+├── studio.html
+├── login.html
+├── script.js
+├── styles.css
+├── pages.css
+│
+├── frontend (backup)/
 │
 ├── training_model.ipynb
+├── .gitattributes
 ├── LICENSE
 └── README.md
 ```
+
+> **Note:** The `backend (backup)` and `frontend (backup)` directories are for backup purposes. The active application uses the `backend/` directory together with the HTML, CSS, and JavaScript files in the repository root.
 
 ---
 
