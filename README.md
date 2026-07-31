@@ -1,35 +1,30 @@
-# 💜 Emotion Signal
+# 🧠 Emotion Signal
 
-**Emotion Signal** is a modern AI-powered emotion recognition platform that analyzes natural language and identifies the underlying emotional state of a piece of text.
+A modern AI-powered **emotion recognition web application** that performs **real-time emotion classification** entirely on the user's machine using a fine-tuned Hugging Face Transformer model.
 
-Designed with a clean, interactive interface, Emotion Signal demonstrates how transformer-based language models can transform everyday text into meaningful emotional insight.
-
-> **Current Version**
->
-> This repository contains the complete frontend experience and interactive prototype. The live demo currently uses a lightweight JavaScript classifier for instant feedback and is designed to be connected to a trained transformer model in production.
+Unlike cloud-based solutions, Emotion Signal runs **locally**, ensuring privacy, low latency, and zero API costs.
 
 ---
 
 # ✨ Features
 
-- 🧠 Emotion recognition from natural language
-- 🎨 Modern responsive interface
-- ⚡ Instant interactive predictions
-- 📊 Confidence visualization
-- 📈 Emotion spectrum display
-- 🖥️ Dedicated Emotion Studio
-- 🔐 Login & workspace prototype
-- 📱 Mobile-friendly design
-- 🌙 Premium landing page
-- 🎯 Ready for backend AI integration
+- 🤖 Fine-tuned Hugging Face Transformer model
+- 🧠 Detects six human emotions
+- 🌐 Modern responsive web interface
+- ⚡ Local Flask REST API
+- 🔒 Privacy-first (no external AI services)
+- 📊 Confidence scores for every emotion
+- 📈 Probability distribution visualization
+- 💻 Runs completely offline after setup
+- 📦 Git LFS support for large model files
 
 ---
 
 # 🎯 Supported Emotions
 
-Emotion Signal currently predicts six primary emotions:
+The model classifies text into one of six emotions:
 
-- 😊 Joy
+- 😀 Joy
 - ❤️ Love
 - 😢 Sadness
 - 😡 Anger
@@ -38,199 +33,219 @@ Emotion Signal currently predicts six primary emotions:
 
 ---
 
-# 🔄 System Overview
+# 🏗️ Project Architecture
 
 ```
-User Text
-     │
-     ▼
-Emotion Studio
-     │
-     ▼
-Emotion Classifier
-     │
-     ▼
-Primary Emotion
-     │
-     ▼
-Confidence Scores
-     │
-     ▼
-Interactive Visualization
+                 User Input
+                      │
+                      ▼
+            Modern Web Frontend
+          (HTML • CSS • JavaScript)
+                      │
+          HTTP POST /predict
+                      │
+                      ▼
+              Flask REST API
+                      │
+                      ▼
+       Hugging Face Transformer Model
+                      │
+                      ▼
+         Emotion + Confidence Scores
+                      │
+                      ▼
+         Interactive Visual Dashboard
 ```
 
 ---
 
-# 📁 Project Structure
+# 📁 Repository Structure
 
 ```
 EmotionSignal/
 
-├── index.html
-├── studio.html
-├── login.html
 │
-├── app.js
-├── styles.css
-├── pages.css
+├── frontend/
+│   ├── index.html
+│   ├── studio.html
+│   ├── login.html
+│   ├── app.js
+│   ├── styles.css
+│   └── pages.css
 │
-├── assets/
+├── backend/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── trained_model/
+│       ├── config.json
+│       ├── tokenizer.json
+│       ├── tokenizer_config.json
+│       ├── training_args.bin
+│       └── model.safetensors
 │
+├── training_model.ipynb
+├── LICENSE
 └── README.md
 ```
 
 ---
 
-# 🖥️ Pages
+# 🚀 Getting Started
 
-## 🏠 Landing Page
-
-Introduces Emotion Signal, explains the technology, showcases use cases, and provides access to the live demo.
-
----
-
-## 🔐 Login
-
-A modern authentication prototype that demonstrates the future workspace experience.
-
----
-
-## 🧠 Emotion Studio
-
-The primary interface where users can:
-
-- Enter text
-- Analyze emotional content
-- View confidence scores
-- Explore the emotional spectrum
-
----
-
-# ⚙️ Current Architecture
-
-```
-User Input
-      │
-      ▼
-JavaScript Emotion Classifier
-      │
-      ▼
-Keyword Matching
-      │
-      ▼
-Confidence Visualization
-      │
-      ▼
-Emotion Dashboard
-```
-
-The current implementation uses a lightweight JavaScript classifier to simulate predictions for demonstration purposes.
-
----
-
-# 🚀 Future Production Architecture
-
-```
-User Input
-      │
-      ▼
-Frontend
-      │
-      ▼
-REST API
-      │
-      ▼
-DistilRoBERTa
-      │
-      ▼
-Softmax Probabilities
-      │
-      ▼
-Emotion Dashboard
-```
-
-A future version will replace the JavaScript classifier with a fine-tuned transformer model hosted through an API.
-
----
-
-# 🚀 Running the Project
-
-Clone the repository:
+## 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/emotion-signal.git
+git clone https://github.com/TanushChugh19/prakriti-hackathon-2026.git
+cd prakriti-hackathon-2026
 ```
 
-Open the project folder:
+---
+
+## 2. Install Git LFS
+
+The trained model is stored using **Git Large File Storage**.
+
+Install Git LFS:
+
+https://git-lfs.com
+
+Then initialize it:
 
 ```bash
-cd emotion-signal
+git lfs install
+git lfs pull
 ```
 
-Launch the website:
+---
 
-```
-index.html
-```
-
-or use a local web server:
+## 3. Install Python dependencies
 
 ```bash
-python -m http.server
+cd backend
+pip install -r requirements.txt
 ```
 
 ---
 
-# 🛠️ Technologies Used
+## 4. Start the backend
 
-- HTML5
-- CSS3
-- JavaScript (ES6)
-- Google Fonts
-- Responsive Design
+```bash
+python app.py
+```
 
----
+The API will be available at
 
-# 🔮 Future Improvements
-
-- 🤖 DistilRoBERTa backend integration
-- 🧠 Fine-tuned HuggingFace model
-- ⚡ FastAPI inference server
-- 🔐 Real authentication
-- 📈 Emotion history
-- 📊 Analytics dashboard
-- ☁️ Cloud deployment
-- 🌍 Multi-language emotion detection
-- 🎭 Multi-label emotion prediction
-- 📱 Progressive Web App
+```
+http://127.0.0.1:5000
+```
 
 ---
 
-# 📖 Use Cases
+## 5. Open the frontend
 
-- Customer feedback analysis
-- Mental health research
-- Chatbot sentiment understanding
-- Social media monitoring
-- Employee wellbeing
-- Educational platforms
-- Human-computer interaction
-- UX research
+Simply open
+
+```
+frontend/index.html
+```
+
+or launch it using a local web server.
+
+---
+
+# 🧠 API
+
+## POST `/predict`
+
+### Request
+
+```json
+{
+    "text": "I am very happy today!"
+}
+```
+
+### Response
+
+```json
+{
+    "emotion": "joy",
+    "confidence": 82.18,
+    "scores": {
+        "sadness": 0.60,
+        "joy": 82.18,
+        "love": 15.48,
+        "anger": 1.02,
+        "fear": 0.20,
+        "surprise": 0.51
+    }
+}
+```
+
+---
+
+# 🧩 Technologies Used
+
+- 🐍 Python
+- 🔥 Flask
+- 🤗 Hugging Face Transformers
+- ⚡ PyTorch
+- 🌐 HTML5
+- 🎨 CSS3
+- 📜 JavaScript
+- 📦 Git LFS
+
+---
+
+# 🔒 Privacy
+
+Emotion Signal performs inference **locally**.
+
+- ✅ No cloud AI APIs
+- ✅ No user data leaves the device
+- ✅ No API keys required
+- ✅ Offline inference supported
+
+---
+
+# 📊 Model
+
+The emotion classifier is a fine-tuned **RoBERTa Sequence Classification** model trained to recognize:
+
+- Joy
+- Love
+- Sadness
+- Anger
+- Fear
+- Surprise
+
+Model artifacts are stored using **Git Large File Storage (Git LFS)**.
+
+---
+
+# 🚀 Future Improvements
+
+- 🎤 Speech emotion recognition
+- 🖼️ Facial emotion recognition
+- 📱 Mobile application
+- 🌍 Multilingual support
+- 📈 Emotion history dashboard
+- 💬 Conversational emotion tracking
+- 🧠 Larger transformer models
+- ☁️ Optional cloud deployment
 
 ---
 
 # ⚠️ Disclaimer
 
-The current version is an interactive demonstration.
+This project is intended for **research, educational, and demonstration purposes**.
 
-The frontend currently uses a lightweight JavaScript classifier to simulate emotion recognition and is intended to showcase the user experience. It should not be considered a production-grade AI system.
-
-Future releases will integrate a fine-tuned transformer model for real emotion classification.
+Emotion predictions are generated by a machine learning model and should **not** be interpreted as psychological or medical assessments.
 
 ---
 
 # 📜 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
 
 See the LICENSE file for details.
